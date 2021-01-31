@@ -1,13 +1,13 @@
 import re
 import socket
 import time
-from Alphabot import Alphabot
+import AlphaBot
 
 # 0.0,B50R90F600L90F400
 # B 50  R 90    F 600   L 90    F 400
 # [(b, 50), ]s
 
-ipServer='192.168.1.19'
+ipServer='192.168.43.90'
 porta=7000
 
 def client():
@@ -28,7 +28,7 @@ def client():
     print("Enter 'exit' to end the connection")
     mex = input() # take input
     print(mex)
-    alphabot= Alphabot()
+    alphabot=AlphaBot
     print("ok")
     while True:
         try:
@@ -56,8 +56,6 @@ def client():
         print(comandi)
         print(el)
         for el in comandi:
-            alphabot.setPWMA(el[1])
-            alphabot.setPWMB(el[1])
             istruction(alphabot, el[0])
             time.sleep(1)
         msg = input("->")  # again take input

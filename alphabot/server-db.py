@@ -3,7 +3,7 @@ import threading
 import sqlite3
 
 
-ip='192.168.1.19'
+ip='192.168.43.90'
 porta=7000
 def main():
     listathread=[]

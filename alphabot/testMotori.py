@@ -1,9 +1,9 @@
 import turtle
-import Alphabot
+import AlphaBot
 
 import time
 
-robot=Alphabot.Alphabot()
+robot=AlphaBot.Alphabot()
 robot.forward()
 
 
