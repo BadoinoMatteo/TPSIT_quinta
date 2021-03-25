@@ -1,6 +1,7 @@
 import re
 import socket
 import time
+import requests
 import AlphaBot
 
 # 0.0,B50R90F600L90F400

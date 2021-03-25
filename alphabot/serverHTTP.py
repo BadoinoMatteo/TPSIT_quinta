@@ -1,6 +1,6 @@
 import sqlite3
 import flask
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 
 app = flask.Flask(__name__)
 
@@ -22,8 +22,20 @@ def api_id():
         app.logger.info(f"start: {start} - end: {end}")
         percorso = db_query_path(end, start)
         return jsonify(percorso)
+    return render_template("index.html")
 
-    return "niente"
+# http://127.0.0.1:5000/api/v1/resources/db?lato=...&&date=...
+@app.route('/api/v1/resources/db', methods=['GET'])
+def sensore():
+    app.logger.info(request.args)
+    if 'lato' in request.args and 'date' in request.args:
+        lato=str(request.args['lato'])
+        date=str(request.args['date'])
+        print(lato + date)
+        db_query_sensore(lato, date)
+    return render_template("index.html")
+
+
 
 
 def db_query_path(end, start):
@@ -44,6 +56,13 @@ def db_query_path(end, start):
     db_connection.close()
     return percorso
 
+def db_query_sensore(lato,date):
+    db_connection = sqlite3.connect('percorsi.db')
+    db_cursor = db_connection.cursor()
+    esito=db_cursor.execute(f'INSERT INTO Sensore ("lato","data") VALUES ("{lato}", "{date}")')
+    db_cursor.execute(f"COMMIT;")
+    print(esito)
+
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', debug='on')
+    app.run(host='192.168.43.90', debug='on')
