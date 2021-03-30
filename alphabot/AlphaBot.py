@@ -4,15 +4,15 @@ import time
 
 class AlphaBot(object):
 
-    def __init__(self, in1=12, in2=13, ena=6, in3=20, in4=21, enb=26, dr=16, dl=19):
-        self.IN1 = in1
-        self.IN2 = in2
-        self.IN3 = in3
-        self.IN4 = in4
-        self.ENA = ena
-        self.ENB = enb
-        self.DR =  dr
-        self.DL=dl
+    def __init__(self):
+        self.IN1 = 12
+        self.IN2 = 13
+        self.IN3 = 20
+        self.IN4 = 21
+        self.ENA = 6
+        self.ENB = 26
+        self.DR = 16
+        self.DL= 19
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
