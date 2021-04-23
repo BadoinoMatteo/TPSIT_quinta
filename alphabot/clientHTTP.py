@@ -27,11 +27,11 @@ def main():
     c.close()
     comandi = split_istruzioni(percorso[0]['percorso'])
     print(comandi)
-    """for el in comandi:
+    for el in comandi:
         print(f"{el[0]} di {el[1]}")
     istruction(alphabot, el[0])
     time.sleep(el[1])
-    alphabot.stop()"""
+    alphabot.stop()
 
 
 def split_istruzioni(percorso):
@@ -47,7 +47,8 @@ def split_istruzioni(percorso):
     lista_direzioni = re.split(regex, percorso)
     lista_direzioni.pop(-1)
     comandi = []
-    for index, el in enumerate(lista_potenze): comandi.append((lista_direzioni[index], int(el)))
+    for index, el in enumerate(lista_potenze):
+        comandi.append((lista_direzioni[index], int(el)))
     return comandi
 
 

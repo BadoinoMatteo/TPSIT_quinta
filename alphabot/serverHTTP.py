@@ -28,6 +28,7 @@ def api_id():
 @app.route('/api/v1/resources/db', methods=['GET'])
 def sensore():
     app.logger.info(request.args)
+    print("dato arrivato")
     if 'lato' in request.args and 'date' in request.args:
         lato=str(request.args['lato'])
         date=str(request.args['date'])

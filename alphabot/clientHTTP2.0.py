@@ -10,36 +10,43 @@ alphabot = AlphaBot()
 alphabot.stop()
 
 def main():
-    path = threading.Thread(target=percorso())
-    sensor = threading.Thread(target=sensore())
+    path = threading.Thread(target=percorso)
+    sensor = threading.Thread(target=sensore)
     sensor.start()
     path.start()
-    path.join()
     sensor.join()
+    path.join()
 
 def sensore():
-    URL = "http://192.168.43.90:5000/api/v1/resources/db"
+    URL ="http://192.168.43.90:5000/api/v1/resources/db"
     stato = "fermo"
-    print(stato)
+    #print(stato)
     while True:
-        print(stato)
+        #print(stato)
         Dr = alphabot.sensoreDestro()
         Dl = alphabot.sensoreSinistro()
-        print(f"DR_status: {Dr} - DL_status: {Dl}")
+        #print(f"DR_status: {Dr} - DL_status: {Dl}")
         if Dl == 1 and Dr == 1 and stato != "libero":
             # tutto libero
             stato = "libero"
+            PARAMS={'lato': "libero", 'date': str(datetime.date.today())}
         if Dl == 0 and Dr == 0 and stato != "ostacolo":
             # ostacolo davanti
             stato = "ostacolo"
-        if Dl == 1 and Dr == 0 and stato != "sx_libero":
+            alphabot.stop()
+            PARAMS = {'lato': "ostacolo davanti", 'date': str(datetime.date.today())}
+        if Dl == 1 and Dr == 0 and stato != "sinistra_libero":
             # ostacolo davanti
             stato = "sinistra_libero"
+            alphabot.stop()
+            PARAMS = {'lato': "ostacolo destra", 'date': str(datetime.date.today())}
         if Dl == 0 and Dr == 1 and stato != "destra_libero":
             # ostacolo davanti
             stato = "destra_libero"
-        time.sleep(1)
-
+            alphabot.stop()
+            PARAMS = {'lato': "ostacolo sinistra", 'date': str(datetime.date.today())}
+        requests.get(url=URL, params=PARAMS )
+        time.sleep(5)
 
 
 
@@ -63,7 +70,6 @@ def percorso():
 
 
 def split_istruzioni(percorso):
-    alphabot.stop()
     lista_potenze = re.split('B|R|F|L', percorso)
     # print(lista_potenze)
     lista_potenze.pop(0)
@@ -78,8 +84,7 @@ def split_istruzioni(percorso):
     comandi = []
     for index, el in enumerate(lista_potenze):
         comandi.append((lista_direzioni[index], int(el)))
-        istruction(alphabot,comandi)
-        alphabot.stop()
+    return comandi
 
 
 def istruction(alphabot, command):
